@@ -24,7 +24,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center py-6">
           {/* Logo */}
           <Link to="/" className="text-3xl font-bold gradient-text hover:scale-105 transition-transform duration-300">
-            🎯 Lost & Found
+            Lost & Found
           </Link>
 
           {/* Desktop Navigation */}

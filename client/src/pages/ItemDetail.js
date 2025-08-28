@@ -13,6 +13,7 @@ const ItemDetail = () => {
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [claiming, setClaiming] = useState(false);
+  const [showClaimModal, setShowClaimModal] = useState(false);
 
   useEffect(() => {
     fetchItem();
@@ -44,6 +45,7 @@ const ItemDetail = () => {
       await axios.post(`/api/items/${id}/claim`);
       toast.success('Item claimed successfully! The owner will be notified.');
       fetchItem(); // Refresh item data
+      setShowClaimModal(false); // Close modal on success
     } catch (error) {
       const message = error.response?.data?.message || 'Failed to claim item';
       toast.error(message);
@@ -190,7 +192,7 @@ const ItemDetail = () => {
               {item.type === 'found' && item.status === 'approved' && !item.claimant && (
                 <div className="text-center">
                   <button
-                    onClick={handleClaim}
+                    onClick={() => setShowClaimModal(true)}
                     disabled={claiming}
                     className="btn btn-success text-lg px-8 py-3 disabled:opacity-50"
                   >
@@ -313,6 +315,45 @@ const ItemDetail = () => {
           </div>
         </div>
       </div>
+
+      {showClaimModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <div className="text-center mb-6">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Claim This Item?</h3>
+              <p className="text-gray-600">
+                Are you sure you want to claim "{item.title}"? This action cannot be undone.
+              </p>
+            </div>
+            
+            <div className="flex space-x-3">
+              <button
+                onClick={() => setShowClaimModal(false)}
+                className="btn btn-secondary flex-1"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleClaim}
+                disabled={claiming}
+                className="btn btn-success flex-1"
+              >
+                {claiming ? (
+                  <div className="flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    Claiming...
+                  </div>
+                ) : (
+                  <>
+                    <FaCheck className="mr-2" />
+                    Yes, Claim It
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

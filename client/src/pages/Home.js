@@ -126,7 +126,7 @@ const Home = () => {
       {/* Search and Filters */}
       <div className="card mb-12 glass">
         <h2 className="text-2xl font-bold text-text-primary mb-6 text-center">
-          🔍 Search & Filter
+          Search & Filter
         </h2>
         <form
           onSubmit={handleSearch}
@@ -178,7 +178,6 @@ const Home = () => {
       {/* Items Grid */}
       {items.length === 0 ? (
         <div className="text-center py-20">
-          <div className="text-8xl mb-6 animate-bounce">🔍</div>
           <h3 className="text-2xl font-semibold text-text-secondary mb-4">
             No items found
           </h3>

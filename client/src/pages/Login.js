@@ -140,7 +140,7 @@ const Login = () => {
         {/* Demo Credentials */}
         <div className="card glass border border-border-accent">
           <h3 className="text-lg font-semibold text-text-primary mb-3 text-center">
-            🧪 Demo Credentials
+            Demo Credentials
           </h3>
           <div className="space-y-2 text-sm">
             <div className="flex items-center justify-between">
